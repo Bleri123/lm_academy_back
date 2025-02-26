@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\UserInfo;
 use App\Models\UserLists;
+use App\Models\Scoreboard;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -55,6 +56,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function scopeSelectSomeUserData($query)
+    {
+        return $query->select('user.id', 'first_name', 'last_name', 'gender', 'email', 'image');
+    }
+
     public function userInfo()
     {
         return $this->hasOne(UserInfo::class, 'user_id', 'id');
@@ -63,5 +69,10 @@ class User extends Authenticatable
     public function lists()
     {
         return $this->belongsToMany(UserLists::class, 'user_list_items', 'user_id', 'list_id')->withTimestamps();
+    }
+
+    public function scoreOnScoreboard()
+    {
+        return $this->hasOne(Scoreboard::class, 'user_id', 'id');
     }
 }
