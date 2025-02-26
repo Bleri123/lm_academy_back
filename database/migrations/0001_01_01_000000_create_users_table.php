@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('date_of_birth')->nullable(); 
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->unsignedInteger('academic_year_id')->nullable();
+            $table->unsignedInteger('academic_year')->nullable();
             $table->boolean('acc_status')->default(true);
             $table->boolean('profile_completed')->default(false);
             $table->string('password');
