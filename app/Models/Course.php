@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\CourseModule;
 use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
@@ -27,6 +28,11 @@ class Course extends Model
     public function updatedBy()
     {
         return $this->belongsTo(User::class, 'updated_by', 'id')->selectUserName();
+    }
+
+    public function modules()
+    {
+        return $this->hasMany(CourseModule::class, 'course_id');
     }
     
 }

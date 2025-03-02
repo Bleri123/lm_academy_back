@@ -7,6 +7,9 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Database\Seeders\CourseSeeder;
 use Database\Seeders\UserListsSeeder;
+use Database\Seeders\CourseModuleSeeder;
+use Database\Seeders\CourseSectionSeeder;
+use Database\Seeders\CourseMaterialSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,6 +22,9 @@ class DatabaseSeeder extends Seeder
             UserListsSeeder::class,
             UserSeeder::class,
             CourseSeeder::class,
+            CourseModuleSeeder::class,
+            CourseSectionSeeder::class,
+            CourseMaterialSeeder::class,
         ]);
     }
 }

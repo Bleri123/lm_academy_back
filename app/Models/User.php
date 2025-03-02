@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\UserInfo;
 use App\Models\UserLists;
 use App\Models\Scoreboard;
+use App\Models\CourseMaterial;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -90,5 +91,15 @@ class User extends Authenticatable
     public function updatedCourses()
     {
         return $this->hasMany(Course::class, 'updated_by');
+    }
+
+    public function createdCourseMaterials()
+    {
+        return $this->hasMany(CourseMaterial::class, 'created_by');
+    }
+
+    public function updatedCourseMaterials()
+    {
+        return $this->hasMany(CourseMaterial::class, 'updated_by');
     }
 }
