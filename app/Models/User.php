@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Course;
 use App\Models\UserInfo;
 use App\Models\UserLists;
 use App\Models\Scoreboard;
@@ -61,6 +62,11 @@ class User extends Authenticatable
         return $query->select('user.id', 'first_name', 'last_name', 'gender', 'email', 'image');
     }
 
+    public function scopeSelectUserName($query)
+    {
+        return $query->select('user.id', 'first_name', 'last_name');
+    }
+
     public function userInfo()
     {
         return $this->hasOne(UserInfo::class, 'user_id', 'id');
@@ -74,5 +80,15 @@ class User extends Authenticatable
     public function scoreOnScoreboard()
     {
         return $this->hasOne(Scoreboard::class, 'user_id', 'id');
+    }
+
+    public function createdCourses()
+    {
+        return $this->hasMany(Course::class, 'created_by');
+    }
+
+    public function updatedCourses()
+    {
+        return $this->hasMany(Course::class, 'updated_by');
     }
 }
