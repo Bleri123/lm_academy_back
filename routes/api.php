@@ -36,3 +36,30 @@ Route::post('/test-email-sent', function (Request $request) {
         return response()->json(['message' => 'Email not sent', 'error' => $e->getMessage()]);
     }
 });
+
+Route::get('zen-quote', function (){
+    try {
+        $response = Http::get('https://zenquotes.io/api/random');
+        if($response->successful()){
+            $quote = $response->json()[0];
+            return response()->json([
+                'success' => true,
+                'quote' => [
+                    'text' => $quote['q'],
+                    'author' => $quote['a']
+                ]
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch quote'
+            ]);
+        }
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'An error occurred while fetching the quote',
+            'error' => $e->getMessage()
+        ]);
+    }
+});
