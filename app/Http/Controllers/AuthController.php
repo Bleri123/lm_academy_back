@@ -170,13 +170,15 @@ class AuthController extends Controller
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     $invalid_emails[] = $email;
                 }else {
-                    if (User::where('email', $email)->exists()) {
-                        $existing_users[] = $email;
-                    } else {
-                        
-                        $valid_emails[] = $email;
-                    }
+                    $valid_emails[] = $email;
                 }
+            }
+
+            if(!empty($valid_emails)){
+                $existingUsersQuery = User::whereIn('email', $valid_emails)->pluck('email')->toArray();
+                $existing_users = $existingUsersQuery;
+
+                $valid_emails = array_diff($valid_emails, $existing_users);
             }
 
             $invalid_emails = implode(', ', $invalid_emails);
@@ -187,7 +189,11 @@ class AuthController extends Controller
                 // return count($valid_emails);
             }
 
-            return response()->json(['valid_emails' => $valid_emails, 'invalid_emails' => $invalid_emails, 'existing_users' => $existing_users ]);
+            return response()->json([
+                'valid_emails' => $valid_emails,
+                'invalid_emails' => $invalid_emails,
+                'existing_users' => $existing_users 
+            ]);
 
         } catch (\Exception $e) {
                 return response()->json(['error' => $e->getMessage()], 500);
