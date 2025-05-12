@@ -9,7 +9,7 @@ use Illuminate\Auth\AuthenticationException;
 use Symfony\Component\HttpFoundation\Response;
 use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
 use Illuminate\Http\Exceptions\HttpResponseException;
-
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 class RefreshToken extends BaseMiddleware
 {
     /**
@@ -29,7 +29,7 @@ class RefreshToken extends BaseMiddleware
             throw new AuthenticationException('Unauthorized', []);
 
         } catch (TokenExpiredException $e) {
-            throw new HttpResponseException(response()->json(['message' => 'Token is expired'], 401));
+            throw new HttpResponseException(response()->json(['message' => 'token expired'], 401));
         } catch (\Exception $e) {
             throw new AuthenticationException('Unauthorized', []);
         }
