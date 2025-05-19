@@ -107,6 +107,24 @@ class UserSeeder extends Seeder
                 ],
                 'role' => 'User'
             ],
+            [
+                'user' => [
+                    'first_name' => 'Bleon',
+                    'last_name' => 'Nasufi',
+                    'gender' => 'male',
+                    'email' => 'bleonnasufi9@gmail.com',
+                    'date_of_birth' => '1996-09-25',
+                    'academic_year' => 3,
+                    'password' => Hash::make('password123'),
+                    'profile_completed' => true,
+                ],
+                'info' => [
+                    'address' => 'Rruga xxxxxxxx, Mihaliq',
+                    'tel' => '+383 45 567 890',
+                    'about' => 'Software engineering student focusing on programming.',
+                ],
+                'role' => 'Admin'
+            ],
         ];
 
         foreach ($albanianUsers as $key => $userData) {
